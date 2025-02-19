@@ -11,7 +11,6 @@ print(sales.add(car1, car1.price))
 print(sales.add(car2, car2.price))
 print(sales.add(car3, car3.price))
 print(sales.add(car4, car4.price))
-
-print(sales.total_price())
-
+print("________________________________________")
 sales.show_sold_cars()
+print(sales.total_price())

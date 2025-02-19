@@ -23,23 +23,23 @@ class Vehicle(ABC):
 class Car(Vehicle):
     def __init__(self, brand, model, year, price, warranty, km=0):
         super().__init__(brand, model, year, price, km)
-        self.__warranty = warranty
+        self._warranty = warranty  
 
     def info(self):
         return f"Mashina nomi: {self.brand}, Modeli: {self.model}, Yili: {self.year}, Narxi: {self.price}"
 
     def warranty(self):
-        return f"Kafolat muddati: {self.__warranty} yil"
+        return f"Kafolat muddati: {self._warranty} yil"
 
 class Electronic(Vehicle):
     def __init__(self, brand, model, year, price, electricity, battery, km=0):
         super().__init__(brand, model, year, price, km)
         self.electricity = electricity
-        self.__battery = battery
+        self._battery = battery  
 
     def info(self):
         return (f"Mashina nomi: {self.brand}, Modeli: {self.model}, Yili: {self.year}, Narxi: {self.price}, "
-                f"Mashina turi: {self.electricity}, Batareya quvvati: {self.__battery} kWh")
+                f"Mashina turi: {self.electricity}, Batareya quvvati: {self._battery} kWh")
 
     def warranty(self):
         return "Elektr avtomobillari uchun kafolat shartlari belgilanmagan."
@@ -58,31 +58,24 @@ class Truck(Car):
 class Super(Vehicle):  
     def __init__(self, brand, model, year, price, warranty, power, km=0):
         super().__init__(brand, model, year, price, km)
-        self.__power = power
-        self.__warranty = warranty
+        self._power = power  
+        self._warranty = warranty  
 
     def info(self):
         return (f"Mashina nomi: {self.brand}, Modeli: {self.model}, Yili: {self.year}, Narxi: {self.price}, "
-                f"Ot kuchi: {self.__power} HP")
+                f"Ot kuchi: {self._power} HP")
 
     def warranty(self):
-        return f"Kafolat muddati: {self.__warranty} yil"
+        return f"Kafolat muddati: {self._warranty} yil"
 
 class Sales:
     def __init__(self):
-        self.__id = id()
-        self.sold_cars = [] 
+        self.sold_cars = []  
 
     def add(self, car, price):
-        car_id = self.__id
-        self.sold_cars.append({"Mashina": car, "Narxi": price, "id" : car_id})
-        return f"{car} xaridlar ro'yhatiga qo'shildi, idsi{car_id}"
-
-    def total_price(self):
-        summa = 0
-        for i in self.sold_cars:
-            summa += i["Narxi"]
-        return f"Umumiy narx: {summa} USD"
+        car_id = id()  
+        self.sold_cars.append({"Mashina": car, "Narxi": price, "id": car_id})
+        return f"{car.info()} xaridlar ro'yhatiga qo'shildi, ID: {car_id}"
     
     def show_sold_cars(self):
         if not self.sold_cars:
@@ -90,5 +83,10 @@ class Sales:
         else:
             print("Olingan mashinalar:")
             for car in self.sold_cars:
-                print(car.info())
+                print(car["Mashina"].info())  
+
+    def total_price(self):
+        summa = sum(car["Narxi"] for car in self.sold_cars)
+        return f"Umumiy narx: {summa} USD"
+
 
