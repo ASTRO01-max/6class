@@ -76,7 +76,14 @@ class Sales:
         car_id = id()  
         self.sold_cars.append({"Mashina": car, "Narxi": price, "id": car_id})
         return f"{car.info()} xaridlar ro'yhatiga qo'shildi, ID: {car_id}"
-    
+
+    def remove(self, carr):
+        for i in self.sold_cars:
+            if i["Mashina"] == carr:
+                self.sold_cars.remove(i)
+                return f"{carr} savatdan olib tashlandi"
+        return f"{carr} savatda topilmadi"
+
     def show_sold_cars(self):
         if not self.sold_cars:
             print("Hali hech qanday mashina yo'q.")
