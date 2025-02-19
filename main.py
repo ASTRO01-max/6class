@@ -1,4 +1,4 @@
-from modul import Car, Electronic, Truck, Super, Sales
+from modul import Car, Electronic, Truck, Super, Sales, read, write
 
 car1 = Car("Toyota", "Camry", 2022, 30000, 5)
 car2 = Electronic("Tesla", "Model S", 2023, 80000, "Elektr", 100)
@@ -15,3 +15,27 @@ print(sales.remove(car3))
 print("________________________________________")
 print(sales.total_price())
 sales.show_sold_cars()
+
+menu = ("1 - saqlash\n"
+        "2 - o'qish\n"
+        "3 - chiqib ketish\n")
+
+while True:
+    print("")
+    print(menu)
+    choice = int(input("enter num: "))
+
+    if choice == 1:
+        users = read()
+        users += [car1, car2, car3, car4]
+        write(users)
+        print("data saved.")
+
+    elif choice == 2:
+        users = read()
+        for user in users:
+            print(user)
+    
+    elif choice == 3:
+        break
+    

@@ -1,5 +1,17 @@
 from abc import ABC, abstractmethod
 from uuid import uuid4 as id
+import json
+
+path = "orders.json"
+
+def read():
+    with open(path, "r") as file:
+        data = json.load(file)
+    return [Sales.dict_to(d) for d in data]
+    
+def write(data):
+    with open(path, "w") as file:
+        json.dump([obj for obj in data], file, indent=4)
 
 class Vehicle(ABC):
     def __init__(self, brand, model, year, price, km=0):
@@ -19,6 +31,15 @@ class Vehicle(ABC):
 
     def get_km(self):
         return f"{self._km} km yurgan"
+    
+    def to_dict(self):
+        return {
+            "brand": self.brand,
+            "model": self.model,
+            "year": self.year,
+            "price": self.price,
+            "km": self._km
+        }
 
 class Car(Vehicle):
     def __init__(self, brand, model, year, price, warranty, km=0):
@@ -70,19 +91,20 @@ class Super(Vehicle):
 
 class Sales:
     def __init__(self):
-        self.sold_cars = []  
+        self.sold_cars = [] 
 
     def add(self, car, price):
         car_id = id()  
         self.sold_cars.append({"Mashina": car, "Narxi": price, "id": car_id})
         return f"{car.info()} xaridlar ro'yhatiga qo'shildi, ID: {car_id}"
-
+    
     def remove(self, carr):
         for i in self.sold_cars:
             if i["Mashina"] == carr:
                 self.sold_cars.remove(i)
-                return f"{carr} savatdan olib tashlandi"
-        return f"{carr} savatda topilmadi"
+                print("Mashina ro'yhatdan olib tashlandi!:")
+                return f"{carr.info()}, savatdan olib tashlandi!!!"
+        return f"{carr.info()} savatda topilmadi"
 
     def show_sold_cars(self):
         if not self.sold_cars:
@@ -96,4 +118,6 @@ class Sales:
         summa = sum(car["Narxi"] for car in self.sold_cars)
         return f"Umumiy narx: {summa} USD"
 
-
+    @classmethod
+    def dict_to(cls, d):
+        return {"mashina": d["mashina"], "narxi": d["narxi"], "id": d["id"]}
