@@ -23,12 +23,9 @@ sales.show_sold_cars()
 path = "orders.json"
 
 def read():
-    try:
-        with open(path, "r") as file:
-            data = json.load(file)
-        return data
-    except (FileNotFoundError, json.JSONDecodeError):
-        return []
+    with open(path, "r") as file:
+        data = json.load(file)
+    return data
 
 def write(data):
     with open(path, "w") as file:

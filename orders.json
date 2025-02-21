@@ -96,5 +96,47 @@
         "year": 2023,
         "price": 250000,
         "km": 0
+    },
+    {
+        "brand": "Toyota",
+        "model": "Camry",
+        "year": 2022,
+        "price": 30000,
+        "km": 0
+    },
+    {
+        "brand": "Tesla",
+        "model": "Model S",
+        "year": 2023,
+        "price": 80000,
+        "km": 0
+    },
+    {
+        "brand": "Ferrari",
+        "model": "F8",
+        "year": 2023,
+        "price": 250000,
+        "km": 0
+    },
+    {
+        "brand": "Toyota",
+        "model": "Camry",
+        "year": 2022,
+        "price": 30000,
+        "km": 0
+    },
+    {
+        "brand": "Tesla",
+        "model": "Model S",
+        "year": 2023,
+        "price": 80000,
+        "km": 0
+    },
+    {
+        "brand": "Ferrari",
+        "model": "F8",
+        "year": 2023,
+        "price": 250000,
+        "km": 0
     }
 ]
