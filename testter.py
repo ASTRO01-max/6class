@@ -95,15 +95,19 @@ class Parking:
                     f"turar joy id raqami: {self.__r_id}")
 
 class Payment:
-    def __init__(self, bank_name, account_num, payment, cash=1200):
+    def __init__(self, bank_name, account_num, payment, my_card, cash=1200):
         self.bank_name = bank_name
         self.cash = cash
         self.__account_num = account_num
         self.payment = payment
+        self.__my_card = my_card
 
     def pay(self, product):
         if self.cash < product:
             return "xisobingizda yetarlicha pul yo'q!"
+        
+        elif self.cash > product:
+            return f"hisobingiz: {self.__my_card}"
         else:
             return f"Bank nomi: {self.bank_name}, hisob raqami: {self.__account_num}, to'lov miqdori: {self.payment}"
 
@@ -160,5 +164,60 @@ class Sales:
         summa = sum(car["Narxi"] for car in self.sold_cars)
         return f"Umumiy narx: {summa} USD"
 
+
+car1 = Car("Toyota", "Camry", 2022, 30000, 5)
+car2 = Electronic("Tesla", "Model S", 2023, 80000, "Elektr", 100)
+car3 = Truck("Volvo", "FH16", 2021, 120000, 3, 30)
+car4 = Super("Ferrari", "F8", 2023, 250000, 3, 710)
+
+sales = Sales()
+
+print(sales.add(car1, car1.price))
+print(sales.add(car2, car2.price))
+print(sales.add(car3, car3.price))
+print(sales.add(car4, car4.price))
+
+print(sales.remove(car3))  
+
+print("________________________________________")
+print(sales.total_price())
+sales.show_sold_cars()
+
+path = "orders.json"
+
+def read():
+    with open(path, "r") as file:
+        data = json.load(file)
+    return data
+
+def write(data):
+    with open(path, "w") as file:
+        json.dump(data, file, indent=4)
+
+menu = ("1 - saqlash\n"
+        "2 - o'qish\n"
+        "3 - chiqib ketish\n")
+
+while True:
+    print("\n", menu)
+    choice = input("Enter num: ").strip()
+
+    if choice == "1":
+        users = read()
+        users += [car.to_dict() for car in [car1, car2, car4]]  
+        write(users)
+        print("Data saved.")
+
+    elif choice == "2":
+        users = read()
+        if not users:
+            print("Ma'lumotlar mavjud emas.")
+        else:
+            for user in users:
+                print(user)
+    
+    elif choice == "3":
+        print("Dastur yakunlandi.")
+        break
 
 

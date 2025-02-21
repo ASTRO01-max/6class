@@ -1,7 +1,6 @@
 from modul import Car, Electronic, Truck, Super, Sales
 import json
 
-
 car1 = Car("Toyota", "Camry", 2022, 30000, 5)
 car2 = Electronic("Tesla", "Model S", 2023, 80000, "Elektr", 100)
 car3 = Truck("Volvo", "FH16", 2021, 120000, 3, 30)
