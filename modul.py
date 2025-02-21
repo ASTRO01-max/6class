@@ -53,7 +53,7 @@ class Electronic(Vehicle):
     def warranty(self):
         return "Elektr avtomobillari uchun kafolat shartlari belgilanmagan."
 
-class Truck(Car):
+class Truck(Vehicle):
     def __init__(self, brand, model, year, price, warranty, capacity, km=0):
         super().__init__(brand, model, year, price, warranty, km)
         self.capacity = capacity
