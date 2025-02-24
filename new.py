@@ -24,6 +24,9 @@
 #             return True
 
 
+
+
+
 class Stack:
     def __init__(self):
         self.lst = []

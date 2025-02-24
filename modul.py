@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 from uuid import uuid4 as id
-import json
 
 class Vehicle(ABC):
     def __init__(self, brand, model, year, price, km=0):
@@ -77,7 +76,7 @@ class Super(Vehicle):
 
     def warranty(self):
         return f"Kafolat muddati: {self._warranty} yil"
-    
+
 class Parking:
     def __init__(self, residence, num):
         self.residence = residence
@@ -131,7 +130,43 @@ class Customer:
                 f"Telefon raqami: {self.call_num}\n"
                 f"Manzil: {self.address}")
 
-     
+class Security:
+    def __init__(self, p_id, password=1234, login="user", admin="admin"):
+        self.password = password
+        self.login = login
+        self.admin = admin
+        self.__p_id = id()
+        self.attempts = []
+
+    def security(self, ent_pass, ent_log, ent_admin):
+        if ent_pass == self.password and ent_log == self.login and ent_admin == self.admin:
+            print(f"Barcha xafsizlik ma'lumotlari to'g'ri"
+                  f"Foydalanuvchining ID raqami: {self.__p_id}")
+            self.attempts.clear()
+            
+        else:
+            self.attempts.append(1)
+
+        if len(self.attempts) >= 5:
+            print(f"urunishlar soni 5tadan oshib ketti siz bloklandingiz! {len(self.attempts)}")
+
+
+    def change_password(self, old_password, new_password):
+        if not self.is_authenticated:
+            print(f"Parolni o'zgartirish uchun avval tizimga kiring!")
+
+        if len(self.attempts) >= 5:
+            print(f"Siz bloklangansiz! Parolni o'zgartira olmaysiz.")
+
+        if old_password == self.password:
+            self.password = new_password
+            print(f"Parol muvaffaqiyatli o'zgartirildi!")
+            self.attempts.clear()
+
+        else:
+            self.attempts.append(1)
+            print(f"Eski parol noto'g'ri! Urinishlar soni: {len(self.attempts)}/5")         
+
 class Sales:
     def __init__(self):
         self.sold_cars = [] 
