@@ -137,6 +137,7 @@ class Security:
         self.admin = admin
         self.__p_id = id()
         self.attempts = []
+        self.is_authenticated = False
 
     def security(self, ent_pass, ent_log, ent_admin):
         if ent_pass == self.password and ent_log == self.login and ent_admin == self.admin:
@@ -150,7 +151,6 @@ class Security:
         if len(self.attempts) >= 5:
             print(f"urunishlar soni 5tadan oshib ketti siz bloklandingiz! {len(self.attempts)}")
 
-
     def change_password(self, old_password, new_password):
         if not self.is_authenticated:
             print(f"Parolni o'zgartirish uchun avval tizimga kiring!")
@@ -161,11 +161,28 @@ class Security:
         if old_password == self.password:
             self.password = new_password
             print(f"Parol muvaffaqiyatli o'zgartirildi!")
+            print(f"Yangi parol IDsi: {self.__p_id}")
             self.attempts.clear()
 
         else:
             self.attempts.append(1)
             print(f"Eski parol noto'g'ri! Urinishlar soni: {len(self.attempts)}/5")         
+
+class Insurance:
+    def __init__(self, company, policy_number, coverage_amount, expiration_date):
+        self.company = company
+        self.policy_number = policy_number
+        self.coverage_amount = coverage_amount
+        self.expiration_date = expiration_date
+
+    def info(self):
+        return (f"Sug'urta kompaniyasi: {self.company}\n"
+                f"Sug'urta polisi raqami: {self.policy_number}\n"
+                f"Sug'urta qamrovi: {self.coverage_amount} USD\n"
+                f"Muddati tugash sanasi: {self.expiration_date}")
+
+    def extend_policy(self, additional_years):
+        return f"Sug'urta muddati {additional_years} yilga uzaytirildi."
 
 class Sales:
     def __init__(self):
